@@ -1,3 +1,4 @@
+import 'package:app_for_practice/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -40,7 +41,13 @@ class _MyWidgetState extends State<Login>
             Column(
               children: [
                 Text('Hello'),
-                ElevatedButton(onPressed: (){}, child: Text('Login'),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Homepage()),
+                    );
+                }, child: Text('Login'),
                 )
                 ],
             )

@@ -42,7 +42,7 @@ class _TodolistState extends State<Todolist>
         icon: Icon(Icons.arrow_back), // Icon on the left side
         tooltip: 'Menu',
         onPressed: () {
-    
+            Navigator.pop(context);
         },
       ),
 

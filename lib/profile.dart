@@ -27,7 +27,7 @@ class _ProfileState extends State<Profile> {
         icon: Icon(Icons.arrow_back), // Icon on the left side
         tooltip: 'Menu',
         onPressed: () {
-  
+            Navigator.pop(context);
         },
       ),
       

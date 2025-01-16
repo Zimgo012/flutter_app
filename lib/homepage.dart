@@ -1,3 +1,6 @@
+import 'package:app_for_practice/chat.dart';
+import 'package:app_for_practice/profile.dart';
+import 'package:app_for_practice/todolist.dart';
 import 'package:flutter/material.dart';
 
 class Homepage extends StatefulWidget {
@@ -61,28 +64,51 @@ class _HomepageState extends State<Homepage>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+
+                    // -- Chat --
                   Column(
                     children: [
-                      Icon(
-                        Icons.message,
-                        color: colors.primary,
-                        size: 40,
-                      ),
-                      SizedBox(height: 20,),
-                      Text('Chat'),
-                    ],
+                        GestureDetector(
+                          onTap: () {
+                            // Code to execute when the icon is clicked
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Chat()),
+                            );
+                          },
+                          child: Icon(
+                            Icons.message,
+                            color: colors.primary,
+                            size: 40,
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Text('Chat'),
+                      ],
                   ),
                   
+                  // -- To do List -- 
                   Column(
                     children: [
-                      Icon(
-                        Icons.checklist,
-                        color: colors.primary,
-                        size: 40,
-                      ),
-                      SizedBox(height: 20,),
-                      Text('To-Do-List'),
-                    ],
+                        GestureDetector(
+                          onTap: () {
+                            // Code to execute when the icon is clicked
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Todolist()),
+                            );
+                          },
+                          child: Icon(
+                            Icons.checklist,
+                            color: colors.primary,
+                            size: 40,
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Text('To-Do-List'),
+                      ],
                   ),
                 ],
                 ),
@@ -93,27 +119,47 @@ class _HomepageState extends State<Homepage>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  
+                  // -- Profile Button --
                    Column(
                     children: [
-                      Icon(
-                        Icons.account_box,
-                        color: colors.primary,
-                        size: 40,
-                      ),
-                      SizedBox(height: 20,),
-                      Text('Profile'),
-                    ],
+                        GestureDetector(
+                          onTap: () {
+                            // Code to execute when the icon is clicked
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Profile()),
+                            );
+                          },
+                          child: Icon(
+                            Icons.account_circle,
+                            color: colors.primary,
+                            size: 40,
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Text('Profile'),
+                      ],
                   ),
+
+                  // -- Log out button --
                    Column(
-                    children: [
-                      Icon(
-                        Icons.logout,
-                        color: colors.primary,
-                        size: 40,
-                      ),
-                      SizedBox(height: 20,),
-                      Text('Logout'),
-                    ],
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            // Code to execute when the icon is clicked
+                            Navigator.pop(context);
+                          },
+                          child: Icon(
+                            Icons.logout,
+                            color: colors.primary,
+                            size: 40,
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Text('Logout'),
+                      ],
                   ),
                 ],
                 )

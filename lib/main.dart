@@ -20,8 +20,9 @@ class MainApp extends StatelessWidget {
       theme: AppTheme.lightTheme, // Use the light theme
       darkTheme: AppTheme.darkTheme, // Use the dark theme
       themeMode: ThemeMode.system, // Automatically switch based on system settings
-      home: Chat(), 
+      home: Login(), 
       // Login(), // Your Login widget
     );
   }
 }
+ 
