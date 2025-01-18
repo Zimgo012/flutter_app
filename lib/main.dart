@@ -1,12 +1,16 @@
+import 'package:app_for_practice/firebase_options.dart';
 import 'package:app_for_practice/theme.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'homepage.dart';
 import 'login.dart';
-import 'todolist.dart';
-import 'profile.dart';
-import 'chat.dart';
 
-void main() {
+
+Future<void> main() async {
+WidgetsFlutterBinding.ensureInitialized();
+
+
+await Firebase.initializeApp();
+
   runApp(const MainApp());
 }
 
@@ -25,4 +29,3 @@ class MainApp extends StatelessWidget {
     );
   }
 }
- 

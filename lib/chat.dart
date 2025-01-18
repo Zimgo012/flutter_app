@@ -13,17 +13,6 @@ class _MyWidgetState extends State<Chat> {
   Widget build(BuildContext context) {
     return Scaffold(
           appBar: AppBar(
-      actions: [
-        IconButton(
-          icon: Icon(Icons.save), // Icon for the action
-          tooltip: 'Settings', // Tooltip when hovered or long-pressed
-          onPressed: () {
-          
-          },
-          alignment: Alignment.topLeft,
-        ),
-      ],
-
       leading: IconButton(
         icon: Icon(Icons.arrow_back), // Icon on the left side
         tooltip: 'Menu',

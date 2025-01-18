@@ -150,6 +150,7 @@ class _HomepageState extends State<Homepage>
                           onTap: () {
                             // Code to execute when the icon is clicked
                             Navigator.pop(context);
+                            //Insert clear token here
                           },
                           child: Icon(
                             Icons.logout,
