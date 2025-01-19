@@ -1,7 +1,14 @@
+import 'package:app_for_practice/main.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
+import 'package:firebase_core/firebase_core.dart';
+
+
+
 import 'package:app_for_practice/chat.dart';
 import 'package:app_for_practice/profile.dart';
 import 'package:app_for_practice/todolist.dart';
 import 'package:flutter/material.dart';
+
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -71,11 +78,7 @@ class _HomepageState extends State<Homepage>
                         GestureDetector(
                           onTap: () {
                             // Code to execute when the icon is clicked
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Chat()),
-                            );
+                            Navigator.pushNamed(context, '/chat');
                           },
                           child: Icon(
                             Icons.message,
@@ -94,11 +97,7 @@ class _HomepageState extends State<Homepage>
                         GestureDetector(
                           onTap: () {
                             // Code to execute when the icon is clicked
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Todolist()),
-                            );
+                            Navigator.pushNamed(context, 'todolist');
                           },
                           child: Icon(
                             Icons.checklist,
@@ -126,11 +125,7 @@ class _HomepageState extends State<Homepage>
                         GestureDetector(
                           onTap: () {
                             // Code to execute when the icon is clicked
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Profile()),
-                            );
+                            Navigator.pushNamed(context, '/profile');
                           },
                           child: Icon(
                             Icons.account_circle,
@@ -149,8 +144,8 @@ class _HomepageState extends State<Homepage>
                         GestureDetector(
                           onTap: () {
                             // Code to execute when the icon is clicked
-                            Navigator.pop(context);
-                            //Insert clear token here
+                            FirebaseAuth.instance.signOut();
+                            Navigator.pushNamed(context, '/sign-in');
                           },
                           child: Icon(
                             Icons.logout,

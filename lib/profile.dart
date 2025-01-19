@@ -1,4 +1,12 @@
+//TODO: make the change profile picture operational
+
+
+
+import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
+
 import 'package:flutter/material.dart';
+import './otherWidgets/editUserInfo.dart';
+import './otherWidgets/AsyncFunctions.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -8,6 +16,18 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  String? displayName;
+  
+  @override
+  void initState() {
+    super.initState();
+    // Fetch the initial display name
+    displayName = FirebaseAuth.instance.currentUser?.displayName ?? 'No name set';
+  }
+
+  
+  
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +70,10 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               
-              ElevatedButton(onPressed: (){}, 
+              ElevatedButton(
+                onPressed: () async{
+      
+                   }, 
               child:  Text('Change profile picture')
               ),
 
@@ -69,6 +92,37 @@ class _ProfileState extends State<Profile> {
                       Text('Account Name '),
                     ],
                   ),
+
+                   Column(
+                    children: [
+                      SizedBox(height: 20,),
+                      FutureBuilder(future: AsyncFunctions().getUserName(), 
+                      builder: (context,snapshot){
+                         if (snapshot.connectionState == ConnectionState.waiting) {
+                            return CircularProgressIndicator(); // Show a loading spinner
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else if (snapshot.hasData) {
+                            return Text(snapshot.data ?? '--');
+                          } else {
+                            return Text('--');
+                      }}
+                      )
+                    ],
+                  ),
+
+                   IconButton(
+                    icon: Icon(Icons.change_circle),
+                    onPressed: (){
+
+                      dialogBuilder(context, (){
+                        
+                        setState(() {
+                          displayName = FirebaseAuth.instance.currentUser?.displayName;
+                        });
+                      });
+                    },
+                  ),
                 ],
                 ),
 
@@ -80,9 +134,17 @@ class _ProfileState extends State<Profile> {
                   Column(
                     children: [
                       SizedBox(height: 20,),
-                      Text('Account info'),
+                      Text('Account email'),
                     ],
                   ),
+                  Column(
+                    children: [
+                      SizedBox(height: 20,),
+                      Text(FirebaseAuth.instance.currentUser?.email ?? 'Test'),
+                    ],
+                  ),
+
+                  
                 ],
                 )
                 
