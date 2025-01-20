@@ -1,12 +1,10 @@
 //TODO: make the change profile picture operational
 
-
-
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 
 import 'package:flutter/material.dart';
-import './otherWidgets/editUserInfo.dart';
-import './otherWidgets/AsyncFunctions.dart';
+import 'otherWidgets/edit_user_info.dart';
+import 'otherWidgets/async_functions.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});

@@ -1,12 +1,7 @@
-import 'package:app_for_practice/main.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
-import 'package:firebase_core/firebase_core.dart';
 
 
 
-import 'package:app_for_practice/chat.dart';
-import 'package:app_for_practice/profile.dart';
-import 'package:app_for_practice/todolist.dart';
 import 'package:flutter/material.dart';
 
 
