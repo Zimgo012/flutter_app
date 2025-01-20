@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import './todo_model.dart';
 import './todo_service.dart';
-import '../otherWidgets/async_functions.dart';
 import '../otherWidgets/edit_user_info.dart';
 
 
