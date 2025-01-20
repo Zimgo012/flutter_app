@@ -1,3 +1,3 @@
-# app_for_practice
+# This app is intended for practicing firebase and flutter.
 
-A new Flutter project.
+
