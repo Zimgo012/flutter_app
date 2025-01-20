@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import './todo_model.dart';
+import './todo_service.dart';
+import '../otherWidgets/async_functions.dart';
+import '../otherWidgets/edit_user_info.dart';
+
 
 class Todolist extends StatefulWidget {
   const Todolist({super.key});
@@ -9,12 +16,24 @@ class Todolist extends StatefulWidget {
 
 class _TodolistState extends State<Todolist>
     with SingleTickerProviderStateMixin {
+
   late AnimationController _controller;
+  final TodoService _todoService = TodoService();
+  final String userId = FirebaseAuth.instance.currentUser!.uid;
+
+   List<TodoModel> todos = [];
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
+  }
+
+  Future<void> _loadTodos() async {
+    final userTodos = await _todoService.getTodos(userId);
+    setState(() {
+      todos = userTodos;
+    });
   }
 
   @override
@@ -56,36 +75,35 @@ class _TodolistState extends State<Todolist>
         ),
       ),
     ),
-    body: ListView(
-      padding: const EdgeInsets.all(20),
-      children: <Widget>[
-        Container(
-          height: 50,
-          color: Colors.amber[600],
-          child: const Center(child: Text('Entry A')),
-        ),
-        SizedBox(height: 20),
-        Container(
-          height: 50,
-          color: Colors.amber[500],
-          child: const Center(child: Text('Entry B')),
-        ),
-        SizedBox(height: 20),
-        Container(
-          height: 50,
-          color: Colors.amber[100],
-          child: const Center(child: Text('Entry C')),
-        ),
-      ],
-    ),
-    floatingActionButton: Align(
-      alignment: Alignment.bottomRight,
-      child: FloatingActionButton(
+
+
+    body: todos.isEmpty
+          ? const Center(child: Text('No todos yet!'))
+          : ListView.builder(
+              padding: const EdgeInsets.all(20),
+              itemCount: todos.length,
+              itemBuilder: (context, index) {
+                final todo = todos[index];
+                return ListTile(
+                  title: Text(todo.title),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete),
+                    onPressed: () async {
+                      await _todoService.deleteTodo(userId, todo.id);
+                      _loadTodos();
+                    },
+                  ),
+                );
+              },
+            ),
+
+
+     floatingActionButton: FloatingActionButton(
         onPressed: () {
+          dialogBuilderToDoList(context, _loadTodos, userId, _todoService);
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
-    ),
   );
 }
 

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 
+import '../todolist/todo_model.dart';
+import '../todolist/todo_service.dart';
 
 
 
-//Pop-up Setting Name for User
+//Pop-up Text Field
 Future<void> dialogBuilder(BuildContext context, VoidCallback onUpdate) {
     String? newName;
 
@@ -60,3 +62,67 @@ Future<void> dialogBuilder(BuildContext context, VoidCallback onUpdate) {
       },
     );
   }
+
+Future<void> dialogBuilderToDoList(
+  BuildContext context,
+  VoidCallback onUpdate,
+  String userId,
+  TodoService todoService,
+) {
+  String? todoTitle;
+
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Add Todo'),
+        content: TextFormField(
+          decoration: const InputDecoration(
+            hintText: 'What are you going to do?',
+            labelText: 'Todo',
+          ),
+          onChanged: (String? value) {
+            todoTitle = value;
+          },
+        ),
+        actions: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Save'),
+            onPressed: () async {
+              if (todoTitle != null && todoTitle!.trim().isNotEmpty) {
+                // Create and add the todo
+                final newTodo = TodoModel(
+                  id: DateTime.now().millisecondsSinceEpoch.toString(),
+                  title: todoTitle!,
+                  description: '', // Empty description
+                  timestamp: DateTime.now(),
+                );
+                await todoService.addTodo(userId, newTodo);
+
+                // Call onUpdate to reload the UI
+                onUpdate();
+                Navigator.of(context).pop();
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Todo cannot be empty!')),
+                );
+              }
+            },
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Never mind'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
